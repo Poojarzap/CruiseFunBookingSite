@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+    background-image: url(/water.jpg);
+    backdrop-filter: blur(5px);
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+       button {
+            background-color: #30e71a;
+    color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #e64c52;
+        }
+        .total-price {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+<h1 style="color:#00fdff;text-align:center;padding-top:10%;margin:0px">Book the seats</h1>
+<b>
+<p style="color:#ffffff;font-size:20px;text-align:center">
+    <strong>The price of 1 ticket is : </strong>
+    <span id="priceSpan" th:text="${price}"></span>
+</p></b>
+
+<form name="saveBooking" th:action="@{/bookCruise}" method="post" th:object="${bookingModel}">
+    <input type="hidden" name="bookingUser" th:value="${userInfo}">
+    <input type="hidden" name="bookingCruise" th:value="${cruise}">
+    <label for="seats" style="color:white">Enter the number of seats : </label>
+    <input type="text" name="numberOfSeats" id="seats" required oninput="calculate()"><br>
+    <label for="seats" style="color:white">Total Price: </label>
+    <input type="text" style="color:white" name="totalPriceDisplay" id="totalPrice" disabled><br>
+    <input type="hidden" name="totalPrice" id="tp">
+    <button type="submit">BOOK</button>
+</form>
+
+<script th:inline="javascript">
+    function calculate() {
+     var price = /*[[${price}]]*/ 0 ;
+        var seats = parseInt(document.getElementById('seats').value);
+        var totalPrice = seats * price;
+        document.getElementById('totalPrice').value = totalPrice.toFixed(2); <!-- display value in form-->
+        document.getElementById('tp').value = totalPrice.toFixed(2);   <!-- to save data -->
+    }
+</script>
+
+</body>
+</html>

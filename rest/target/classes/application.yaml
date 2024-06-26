@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://harleyquinn19729:Poojar%40zapcom@productdb.vbnflcl.mongodb.net/?retryWrites=true&w=majority&appName=ProductDb
+      database: CruiseFunBooking
+
+authentication:
+  phoneNumber: "12345678"
+  password: "12345678"
